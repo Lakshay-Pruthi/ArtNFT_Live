@@ -34,7 +34,7 @@ function Navbar() {
                 <div>
                     <button>Account : {userAccount}</button>
                     <button><Link to='MyNFT'>My NFT's</Link></button>
-                    <button><Link to='about'>About</Link></button>
+{/*                     <button><Link to='about'>About</Link></button> */}
                     <button onClick={connectToWallet}>connect</button>
                 </div>
             </nav>
