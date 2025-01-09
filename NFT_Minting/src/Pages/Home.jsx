@@ -29,37 +29,60 @@ function Home() {
     const [file, setFile] = useState(null);
 
 
-    // Fetching Image
-    const HUGGING_FACE_API_KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+    const STABILITY_AI_API_KEY = 'sk-7Z2dO4tjNqWs95WLMqArYVLV5IJY8nkhv0oedwanmOJLrQy3';
 
-    async function query(data) {
-        const response = await fetch(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1",
-            {
-                headers: { Authorization: HUGGING_FACE_API_KEY },
-                method: "POST",
-                body: JSON.stringify(data),
+    async function generateImage(payload) {
+        const formData = new FormData();
+
+
+        for (const key in payload) {
+            if (payload.hasOwnProperty(key)) {
+                formData.append(key, payload[key]);
             }
-        );
+        }
+
+        const response = await fetch('https://api.stability.ai/v2beta/stable-image/generate/sd3', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${STABILITY_AI_API_KEY}`,
+                Accept: 'image/*',
+            },
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
         const result = await response.blob();
         return result;
     }
 
     async function getImage(e) {
         e.preventDefault();
+
         const title = e.target[0].value.toUpperCase();
         const description = e.target[1].value;
+
         setTitle(title);
-        setShowImage(true)
-        setLoading(true)
-        query({ "inputs": description }).then((response) => {
-            setFile(response)
-            setAiImg(URL.createObjectURL(response));
-            setLoading(false)
-        });
+        setShowImage(true);
+        setLoading(true);
+
+        const payload = {
+            prompt: description,
+            width: 512,
+            height: 512,
+        }
+
+        try {
+            const imageBlob = await generateImage(payload);
+            setFile(imageBlob);
+            setAiImg(URL.createObjectURL(imageBlob));
+            console.error('Error generating image:', error);
+        } finally {
+            setLoading(false);
+        }
     }
-
-
 
 
 

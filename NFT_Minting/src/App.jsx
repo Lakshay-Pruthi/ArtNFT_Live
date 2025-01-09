@@ -19,7 +19,7 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main />} >
+          <Route path='/ArtNFT_Live/' element={<Main />} >
             <Route index element={<Home />} />
             <Route path='About' element={<About />} />
             <Route path='MyNFT' element={<MyNFT />} />

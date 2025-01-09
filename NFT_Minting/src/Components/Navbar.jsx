@@ -23,7 +23,7 @@ function Navbar() {
         <>
 
             <nav>
-                <Link to='/'>
+                <Link to='/ArtNFT_Live/'>
 
                     <div id='navBox1'>
                         <img src={LOGO} alt="" />
@@ -34,7 +34,7 @@ function Navbar() {
                 <div>
                     <button>Account : {userAccount}</button>
                     <button><Link to='MyNFT'>My NFT's</Link></button>
-                    <button><Link to='about'>About</Link></button>
+                    {/* <button><Link to='about'>About</Link></button> */}
                     <button onClick={connectToWallet}>connect</button>
                 </div>
             </nav>
