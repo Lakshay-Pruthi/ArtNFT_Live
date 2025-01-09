@@ -29,7 +29,7 @@ function Home() {
     const [file, setFile] = useState(null);
 
 
-    const STABILITY_AI_API_KEY = 'sk-7Z2dO4tjNqWs95WLMqArYVLV5IJY8nkhv0oedwanmOJLrQy3';
+    const STABILITY_AI_API_KEY = import.meta.env.VITE_STABLE_DIFFUSION_API_KEY;
 
     async function generateImage(payload) {
         const formData = new FormData();
